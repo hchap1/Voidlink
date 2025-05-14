@@ -1,10 +1,16 @@
 use clap::Parser;
 
+#[derive(Clone, Copy, Debug)]
+enum Mode {
+    Send,
+    Receive
+}
+
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
     #[arg(short, long)]
-    mode: String,
+    mode: Mode,
 
     #[arg(short, long)]
     ip: String,
@@ -15,5 +21,5 @@ struct Args {
 
 fn main() {
     let args = Args::parse();
-    println!("You said {} {} {}", args.mode, args.ip, args.port);
+    println!("You said {:?} {} {}", args.mode, args.ip, args.port);
 }
