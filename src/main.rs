@@ -1,6 +1,8 @@
-use clap::Parser;
+mod send;
+mod receive;
+use clap::{Parser, Subcommand};
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, Subcommand)]
 enum Mode {
     Send,
     Receive
@@ -9,7 +11,7 @@ enum Mode {
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
-    #[arg(short, long)]
+    #[command(subcommand)]
     mode: Mode,
 
     #[arg(short, long)]
@@ -21,5 +23,4 @@ struct Args {
 
 fn main() {
     let args = Args::parse();
-    println!("You said {:?} {} {}", args.mode, args.ip, args.port);
 }
